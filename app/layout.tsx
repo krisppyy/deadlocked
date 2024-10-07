@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Navbar } from "@/components/navbar";
+import Footer from "@/components/footer";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,8 +31,26 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Navbar />
+        <div
+          className="bg-scroll bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url(deadlock-image.webp)`,
+          }}
+        >
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </div>
+        <Footer />
       </body>
     </html>
   );
 }
+
+/** DARK MODE */
