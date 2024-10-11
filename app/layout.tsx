@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/themeprovider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,23 +31,23 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
-        <div
-          className="bg-scroll bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url(deadlock-image.webp)`,
-          }}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
+          <Navbar />
+          <div
+            className="bg-scroll bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url(deadlock-image.webp)`,
+            }}
           >
             {children}
-          </ThemeProvider>
-        </div>
-        <Footer />
+          </div>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

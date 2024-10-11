@@ -2,74 +2,54 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { cn } from "@/lib/utils"; // Ensure this path is correct for your utils
+
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
-  NavigationMenuTrigger,
+  NavigationMenuList,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"; // Ensure this path is correct
-import { ModeToggle } from "./darkmode";
+} from "@/components/ui/navigation-menu";
+import { ModeToggle } from "./mode-toggle";
 
 export function Navbar() {
   return (
-    <NavigationMenu>
-      <NavigationMenuItem>
-        <Link href="/" legacyBehavior passHref>
-          <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-            <img
-              src="Valve_Deadlock_icon.png"
-              alt=""
-              className="size-12 mt-6"
-            />
-          </NavigationMenuLink>
-        </Link>
-      </NavigationMenuItem>
-      <NavigationMenuItem>
-        <Link href="characters" legacyBehavior passHref>
-          <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-            Characters
-          </NavigationMenuLink>
-        </Link>
-      </NavigationMenuItem>
-      <NavigationMenuItem>
-        <Link href="items-page" legacyBehavior passHref>
-          <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-            Items
-          </NavigationMenuLink>
-        </Link>
-      </NavigationMenuItem>
-      <NavigationMenuItem className="right-0">
+    <NavigationMenu className="flex items-center justify-between w-full p-auto">
+      <NavigationMenuList className="flex items-center space-x-4">
+        <NavigationMenuItem>
+          <Link href="/" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              <img
+                src="Valve_Deadlock_icon.png"
+                alt="icon"
+                className="size-10 transition-transform duration-300 group-hover:scale-110 group-focus:scale-110"
+              />
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Link href="/characters" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              <p className="hover:scale-110 focus:scale-110 transition-transform duration-300">
+                Characters
+              </p>
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Link href="/items-page" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              <p className="hover:scale-110 focus:scale-110 transition-transform duration-300">
+                Items
+              </p>
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+
+      <div className="ml-8">
         <ModeToggle />
-      </NavigationMenuItem>
+      </div>
     </NavigationMenu>
   );
 }
-
-const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
-  return (
-    <li className="list-none p-0 m-0">
-      <NavigationMenuLink asChild>
-        <a
-          ref={ref}
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </a>
-      </NavigationMenuLink>
-    </li>
-  );
-});
-ListItem.displayName = "ListItem";
